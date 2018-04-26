@@ -24,7 +24,20 @@ LEARN_RATE = 0.001
 BATCH_SIZE = 100
 TRAIN_STEPS = 5000
 LOG_ITER = 50
-FILE_NAME = "mnist_04"
+FILE_NAME = "mnist_06"
+
+def variable_summaries(var):
+  """Attach a lot of summaries to a Tensor (for TensorBoard visualization)."""
+  with tf.name_scope('summaries'):
+    mean = tf.reduce_mean(var)
+    tf.summary.scalar('mean', mean)
+    with tf.name_scope('stddev'):
+      stddev = tf.sqrt(tf.reduce_mean(tf.square(var - mean)))
+    tf.summary.scalar('stddev', stddev)
+    tf.summary.scalar('max', tf.reduce_max(var))
+    tf.summary.scalar('min', tf.reduce_min(var))
+    tf.summary.histogram('histogram', var)
+
 
 def cnn(features, labels, mode):
 	"""Model function for CNN."""
